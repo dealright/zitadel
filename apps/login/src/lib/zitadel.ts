@@ -444,9 +444,12 @@ export async function addHumanUser({ serviceConfig, email, firstName, lastName, 
   let addHumanUserRequest: AddHumanUserRequest = create(AddHumanUserRequestSchema, {
     email: {
       email,
+      // Dealright: send a real verification code (via the configured Resend
+      // SMTP provider) instead of upstream's isVerified:false, which silently
+      // skips notification entirely.
       verification: {
-        case: "isVerified",
-        value: false,
+        case: "sendCode",
+        value: create(SendEmailVerificationCodeSchema, {}),
       },
     },
     username: email,
