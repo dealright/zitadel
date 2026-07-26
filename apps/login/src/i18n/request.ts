@@ -85,6 +85,10 @@ export default getRequestConfig(async () => {
 
   return {
     locale,
-    messages: deepmerge.all([fallbackMessages, localeMessages, customMessages]) as Record<string, string>,
+    // Dealright: localeMessages (our forked, source-controlled copy) must win
+    // over customMessages (Zitadel's own system/instance-level hosted-login
+    // translation defaults, e.g. "Welcome back!"/"Loginname") -- we want full
+    // source control over copy, not Zitadel's admin-console text overrides.
+    messages: deepmerge.all([fallbackMessages, customMessages, localeMessages]) as Record<string, string>,
   };
 });
