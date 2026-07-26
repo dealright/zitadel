@@ -2,22 +2,17 @@ import "@/styles/globals.scss";
 
 import { BackgroundWrapper } from "@/components/background-wrapper";
 import { LanguageProvider } from "@/components/language-provider";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { Skeleton } from "@/components/skeleton";
 import { ThemeProvider } from "@/components/theme-provider";
-import ThemeSwitch from "@/components/theme-switch";
-import { LANGS, getLanguage } from "@/lib/i18n";
-import { getServiceConfig } from "@/lib/service-url";
-import { getAllowedLanguages } from "@/lib/zitadel";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Lato } from "next/font/google";
-import { headers } from "next/headers";
+import { Inter } from "next/font/google";
 import React, { Suspense } from "react";
 
-const lato = Lato({
-  weight: ["400", "700", "900"],
+// Dealright: matches dealright.ai's font (Inter, not upstream's Lato).
+const inter = Inter({
+  weight: ["400", "500", "700", "900"],
   subsets: ["latin"],
 });
 
@@ -26,24 +21,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title") };
 }
 
+// Dealright: no manual theme/language toggle -- system dark/light preference
+// still applies automatically via ThemeProvider (next-themes), just no UI to
+// override it (until a user has an account + settings page). English only.
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const _headers = await headers();
-  const { serviceConfig } = getServiceConfig(_headers);
-
-  let languages = LANGS;
-  try {
-    const settings = await getAllowedLanguages({ serviceConfig });
-    if (settings.allowedLanguages?.length) {
-      languages = settings.allowedLanguages
-        .filter((code) => LANGS.find((l) => l.code === code))
-        .map((code) => getLanguage(code));
-    }
-  } catch (e) {
-    console.error("Failed to load supported languages", e);
-  }
-
   return (
-    <html className={`${lato.className}`} suppressHydrationWarning>
+    <html className={`${inter.className}`} suppressHydrationWarning>
       <head />
       <body>
         <ThemeProvider>
@@ -57,9 +40,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     <Skeleton>
                       <div className="h-40"></div>
                     </Skeleton>
-                    <div className="flex flex-row items-center justify-end space-x-4 py-4">
-                      <ThemeSwitch />
-                    </div>
                   </div>
                 </BackgroundWrapper>
               }
@@ -70,10 +50,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 >
                   <div className="relative mx-auto w-full max-w-[1100px] py-8">
                     <div>{children}</div>
-                    <div className="mx-auto flex max-w-[440px] flex-row items-center justify-end space-x-4 px-4 py-4 md:max-w-full md:px-8">
-                      <LanguageSwitcher languages={languages} />
-                      <ThemeSwitch />
-                    </div>
                   </div>
                 </BackgroundWrapper>
               </LanguageProvider>

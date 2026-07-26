@@ -23,12 +23,12 @@
     }
   },
   "loginname": {
-    "title": "Welcome back!",
-    "description": "Enter your login details.",
+    "title": "Sign in to Dealright",
+    "description": "Continue with your Dealright account.",
     "register": "Register new user",
     "submit": "Continue",
     "labels": {
-      "loginname": "Loginname",
+      "loginname": "Email",
       "username": "Username",
       "usernameOrPhoneNumber": "Username or phone number",
       "usernameOrEmail": "Username or email"
@@ -317,8 +317,8 @@
       "title": "Missing data",
       "description": "Provide email, first and last name to register."
     },
-    "title": "Register",
-    "description": "Create your Zitadel account.",
+    "title": "Create your account",
+    "description": "Join Dealright's M&A Advisory Platform.",
     "noMethodAvailableWarning": "No authentication method available. Please contact your administrator.",
     "selectMethod": "Select the method you would like to authenticate",
     "agreeTo": "To register you must agree to the terms and conditions",
