@@ -1,7 +1,7 @@
 {
   "common": {
     "back": "Back",
-    "title": "Login with Zitadel"
+    "title": "Dealright"
   },
   "accounts": {
     "title": "Accounts",
@@ -438,7 +438,7 @@
     "request": {
       "title": "{appName} would like to connect",
       "description": "{appName} will have access to:",
-      "disclaimer": "By clicking Allow, you allow {appName} and Zitadel to use your information in accordance with their respective terms of service and privacy policies. You can revoke this access at any time.",
+      "disclaimer": "By clicking Allow, you allow {appName} to use your information in accordance with its terms of service and privacy policy. You can revoke this access at any time.",
       "submit": "Allow",
       "deny": "Deny"
     },
