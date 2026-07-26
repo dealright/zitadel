@@ -132,8 +132,14 @@ export function TotpRegister({ uri, loginName, sessionId, requestId, organizatio
 
             <div className="mt-8 flex w-full flex-row items-center">
               <span className="flex-grow"></span>
+              {/* type="button", not "submit" -- the enclosing <form> has no
+                  onSubmit, so a submit button here also fires a native form
+                  submission (page reload) alongside this onClick. That reload
+                  re-invokes the page's AddTOTP call on an already-verified
+                  factor, throwing "already_exists" right after a successful
+                  verify. */}
               <Button
-                type="submit"
+                type="button"
                 className="self-end"
                 variant={ButtonVariants.Primary}
                 disabled={loading || !formState.isValid}

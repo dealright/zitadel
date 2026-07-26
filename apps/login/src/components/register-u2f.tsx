@@ -188,8 +188,12 @@ export function RegisterU2f({ loginName, sessionId, organization, requestId, che
           <BackButton data-testid="back-button" />
 
           <span className="flex-grow"></span>
+          {/* type="button": see totp-register.tsx for why -- a submit button
+              in this form with no onSubmit also triggers a native page
+              reload, which re-invokes AddU2F on an already-registered
+              factor. */}
           <Button
-            type="submit"
+            type="button"
             className="self-end"
             variant={ButtonVariants.Primary}
             disabled={loading}
